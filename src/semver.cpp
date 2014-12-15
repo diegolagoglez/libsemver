@@ -1,6 +1,12 @@
 #include "../include/semver/semver.hpp"
 
+#include <sstream>
+
+using std::stringstream;
+
 namespace semver {
+
+const string SemVer::SEPARATOR	= ".";
 
 SemVer::SemVer() {
 
@@ -75,7 +81,9 @@ SemVer::compare(const SemVer& semver) const {
 
 const string
 SemVer::toString() const {
-	return string();
+	stringstream out;
+	out << fMajor << SEPARATOR << fMinor << SEPARATOR << fPatch;
+	return out.str();
 }
 
 }	// namespace semver

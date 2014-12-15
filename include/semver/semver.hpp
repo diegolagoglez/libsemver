@@ -10,6 +10,8 @@ using std::string;
 class SemVer {
 	private:
 
+		static const string	SEPARATOR;
+
 		unsigned 	fMajor;
 		unsigned	fMinor;
 		unsigned	fPatch;
