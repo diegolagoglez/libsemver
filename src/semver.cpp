@@ -57,6 +57,16 @@ SemVer::patch() const {
 	return fPatch;
 }
 
+const string
+SemVer::label() const {
+	return fLabel;
+}
+
+const string
+SemVer::build() const {
+	return fBuild;
+}
+
 int
 SemVer::compare(const SemVer& semver) const {
 	// TODO: Implement this.
