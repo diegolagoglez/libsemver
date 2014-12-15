@@ -1,4 +1,4 @@
-# SemVer C++ class to implement semantic versions handling
+# SemVer: C++ class to implement semantic versions handling
 
 ## Introduction
 
