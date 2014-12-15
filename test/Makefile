@@ -1,4 +1,6 @@
 
+CXXFLAGS	:= -I../include -L../lib -lsemver
+
 all:
 	@echo 'Usage: make <target file with no extension>'
 
