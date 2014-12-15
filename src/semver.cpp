@@ -6,26 +6,26 @@ SemVer::SemVer() {
 
 }
 
-SemVer::SemVer(unsigned major, unsigned minor, unsigned patch, const string label)
+SemVer::SemVer(unsigned major, unsigned minor, unsigned patch, const string label, const string build)
 	: fMajor(major),
 	  fMinor(minor),
 	  fPatch(patch),
-	  fLabel(label)
+	  fLabel(label),
+	  fBuild(build)
 {
-
 }
 
 SemVer::SemVer(const string version)
 	: fMajor(0),
 	  fMinor(0),
 	  fPatch(0),
-	  fLabel()
+	  fLabel(),
+	  fBuild()
 {
 	parseVersionString(version);
 }
 
 SemVer::~SemVer() {
-
 }
 
 void
