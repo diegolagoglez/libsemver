@@ -6,6 +6,15 @@ SemVer::SemVer() {
 
 }
 
+SemVer::SemVer(const SemVer& s)
+	: fMajor(s.fMajor),
+	  fMinor(s.fMinor),
+	  fPatch(s.fPatch),
+	  fLabel(s.fLabel),
+	  fBuild(s.fBuild)
+{
+}
+
 SemVer::SemVer(unsigned major, unsigned minor, unsigned patch, const string label, const string build)
 	: fMajor(major),
 	  fMinor(minor),

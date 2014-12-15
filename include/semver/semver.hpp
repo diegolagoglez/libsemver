@@ -21,6 +21,8 @@ class SemVer {
 	public:
 		SemVer();
 
+		SemVer(const SemVer& s);
+
 		SemVer(unsigned major, unsigned minor, unsigned patch, const string label = string(), const string build = string());
 
 		SemVer(string version);
