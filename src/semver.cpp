@@ -63,4 +63,9 @@ SemVer::compare(const SemVer& semver) const {
 	return 0;
 }
 
+const string
+SemVer::toString() const {
+	return string();
+}
+
 }	// namespace semver
