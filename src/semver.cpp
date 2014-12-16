@@ -2,6 +2,8 @@
 
 #include <sstream>
 
+#include <boost/regex.hpp>
+
 using std::stringstream;
 
 namespace semver {
@@ -45,11 +47,21 @@ SemVer::~SemVer() {
 
 void
 SemVer::parseVersionString(const string version) {
-	// TODO: Implement this.
 	// Examples: 1.2.3, 1.2.3-beta, 1.2.3-beta+build, 1.2.3+build
 	// RegEx: ([0-9]+)\.([0-9]+)\.([0-9]+)(?:-(\w+)\+(\w+)|-(\w+)|\+(\w+))?
 	// Matches: 1, 2 and 3: version parts. 4: beta when beta+build; 5: build
 	// when beta+build; 6: beta when only beta; 7: build when only build:
+
+	static const boost::regex expression("([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:-(\\w+)\\+(\\w+)|-(\\w+)|\\+(\\w+))?");
+
+	boost::match_results<string::const_iterator> results;
+
+	if (boost::regex_search(version, results, expression)) {
+		// TODO: Assign values.
+	} else {
+		// TODO: Throw the corresponding exception.
+		throw "Invalid version string: " + version;
+	}
 }
 
 unsigned
