@@ -10,15 +10,11 @@ using std::string;
 class SemVer {
 	private:
 
-		static const string	SEPARATOR;
-
 		unsigned 	fMajor;
 		unsigned	fMinor;
 		unsigned	fPatch;
 		string		fLabel;
 		string		fBuild;
-
-		void		parseVersionString(const string version);
 
 	public:
 		SemVer();
@@ -30,6 +26,8 @@ class SemVer {
 		SemVer(string version);
 
 		virtual ~SemVer();
+
+		virtual void			assign(const string version);
 
 		virtual unsigned		major() const;
 		virtual unsigned		minor() const;

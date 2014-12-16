@@ -1,12 +1,21 @@
 #include "../include/semver/semver.hpp"
 
 #include <sstream>
+#include <exception>
 
 #include <boost/regex.hpp>
 
 using std::stringstream;
 
 namespace semver {
+
+static unsigned
+string_to_int(const string value) {
+	stringstream ss(value);
+	unsigned result;
+	ss >> result;
+	return result;
+}
 
 /*
  * Methods names 'major' and 'minor' conflicts with sys/sysmacros.h, but POSIX
@@ -17,7 +26,9 @@ namespace semver {
 #undef major
 #undef minor
 
-const string SemVer::SEPARATOR	= ".";
+static const string NUMBER_SEPARATOR	= ".";
+static const string LABEL_SEPARATOR		= "-";
+static const string BUILD_SEPARATOR		= "+";
 
 SemVer::SemVer() {
 
@@ -48,28 +59,33 @@ SemVer::SemVer(const string version)
 	  fLabel(),
 	  fBuild()
 {
-	parseVersionString(version);
+	assign(version);
 }
 
 SemVer::~SemVer() {
 }
 
 void
-SemVer::parseVersionString(const string version) {
+SemVer::assign(const string version) {
 	// Examples: 1.2.3, 1.2.3-beta, 1.2.3-beta+build, 1.2.3+build
 	// RegEx: ([0-9]+)\.([0-9]+)\.([0-9]+)(?:-(\w+)\+(\w+)|-(\w+)|\+(\w+))?
 	// Matches: 1, 2 and 3: version parts. 4: beta when beta+build; 5: build
-	// when beta+build; 6: beta when only beta; 7: build when only build:
+	// when beta+build; 6: beta when only beta; 7: build when only build.
+
+	// FIX: 0.0.0+build-metadata
 
 	static const boost::regex expression("([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:-(\\w+)\\+(\\w+)|-(\\w+)|\\+(\\w+))?");
 
 	boost::match_results<string::const_iterator> results;
 
 	if (boost::regex_search(version, results, expression)) {
-		// TODO: Assign values.
+		fMajor = string_to_int(results[1]);
+		fMinor = string_to_int(results[2]);
+		fPatch = string_to_int(results[3]);
+		fLabel = results[4] != "" ? results[4] : results[6];
+		fBuild = results[5] != "" ? results[5] : results[7];
 	} else {
-		// TODO: Throw the corresponding exception.
-		throw "Invalid version string: " + version;
+		throw std::invalid_argument("Invalid semantic version string: " + version);
 	}
 }
 
@@ -107,7 +123,7 @@ SemVer::compare(const SemVer& semver) const {
 const string
 SemVer::toString() const {
 	stringstream out;
-	out << fMajor << SEPARATOR << fMinor << SEPARATOR << fPatch;
+	out << fMajor << NUMBER_SEPARATOR << fMinor << NUMBER_SEPARATOR << fPatch << (fLabel != "" ? LABEL_SEPARATOR + fLabel : "") << (fBuild != "" ? BUILD_SEPARATOR + fBuild : "");
 	return out.str();
 }
 
