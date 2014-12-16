@@ -11,7 +11,7 @@ INSTALLDIR		:= /usr/local/lib
 INCLUDEDIR		:= ../include
 CXX_INCLUDE		:= -I$(INCLUDEDIR)
 LIBNAMEFLAGS	:= -Wl,-soname,$(SONAME)
-CXXFLAGS		:= -fPIC -Wall
+CXXFLAGS		:= -fPIC -Wall -lboost_regex
 DEPS_FLAGS		:= -MMD -MP
 LIBDIR			:= ../lib
 
