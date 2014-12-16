@@ -8,6 +8,15 @@ using std::stringstream;
 
 namespace semver {
 
+/*
+ * Methods names 'major' and 'minor' conflicts with sys/sysmacros.h, but POSIX
+ * says they must be available, so with the next lines, those macros are
+ * undefined. See more information at:
+ * http://stackoverflow.com/questions/22240973/major-and-minor-macros-defined-in-sys-sysmacros-h-pulled-in-by-iterator
+*/
+#undef major
+#undef minor
+
 const string SemVer::SEPARATOR	= ".";
 
 SemVer::SemVer() {
