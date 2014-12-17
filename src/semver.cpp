@@ -66,15 +66,20 @@ SemVer::~SemVer() {
 }
 
 void
+SemVer::check(const string version) const {
+	if (version != toString()) {
+		throw std::invalid_argument("Invalid semantic version string: " + version);
+	}
+}
+
+void
 SemVer::assign(const string version) {
 	// Examples: 1.2.3, 1.2.3-beta, 1.2.3-beta+build, 1.2.3+build
-	// RegEx: ([0-9]+)\.([0-9]+)\.([0-9]+)(?:-(\w+)\+(\w+)|-(\w+)|\+(\w+))?
-	// Matches: 1, 2 and 3: version parts. 4: beta when beta+build; 5: build
-	// when beta+build; 6: beta when only beta; 7: build when only build.
+	// RegEx: ([0-9]+)\.([0-9]+)\.([0-9]+)(?:-(\w+)(\+(.*))?|\+(.*))?
+	// Matches: 1, 2 and 3: version parts. 4 is always de label part (alpha,
+	// beta, etc.); 6 or 7 are the build metainformation part.
 
-	// FIX: 0.0.0+build-metadata
-
-	static const boost::regex expression("([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:-(\\w+)\\+(\\w+)|-(\\w+)|\\+(\\w+))?");
+	static const boost::regex expression("([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:-(\\w+)(\\+(.*))?|\\+(.*))?");
 
 	boost::match_results<string::const_iterator> results;
 
@@ -82,8 +87,9 @@ SemVer::assign(const string version) {
 		fMajor = string_to_int(results[1]);
 		fMinor = string_to_int(results[2]);
 		fPatch = string_to_int(results[3]);
-		fLabel = results[4] != "" ? results[4] : results[6];
-		fBuild = results[5] != "" ? results[5] : results[7];
+		fLabel = results[4];
+		fBuild = results[6] != "" ? results[6] : results[7];
+		check(version);
 	} else {
 		throw std::invalid_argument("Invalid semantic version string: " + version);
 	}
