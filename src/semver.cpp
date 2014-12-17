@@ -30,8 +30,13 @@ static const string NUMBER_SEPARATOR	= ".";
 static const string LABEL_SEPARATOR		= "-";
 static const string BUILD_SEPARATOR		= "+";
 
-SemVer::SemVer() {
-
+SemVer::SemVer()
+	: fMajor(0),
+	  fMinor(0),
+	  fPatch(0),
+	  fLabel(),
+	  fBuild()
+{
 }
 
 SemVer::SemVer(const SemVer& s)
