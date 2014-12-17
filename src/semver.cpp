@@ -66,6 +66,13 @@ SemVer::~SemVer() {
 }
 
 void
+SemVer::check(const string version) const {
+	if (version != toString()) {
+		throw std::invalid_argument("Invalid semantic version string: " + version);
+	}
+}
+
+void
 SemVer::assign(const string version) {
 	// Examples: 1.2.3, 1.2.3-beta, 1.2.3-beta+build, 1.2.3+build
 	// RegEx: ([0-9]+)\.([0-9]+)\.([0-9]+)(?:-(\w+)(\+(.*))?|\+(.*))?
@@ -82,6 +89,7 @@ SemVer::assign(const string version) {
 		fPatch = string_to_int(results[3]);
 		fLabel = results[4];
 		fBuild = results[6] != "" ? results[6] : results[7];
+		check(version);
 	} else {
 		throw std::invalid_argument("Invalid semantic version string: " + version);
 	}

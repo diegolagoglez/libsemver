@@ -16,6 +16,8 @@ class SemVer {
 		string		fLabel;
 		string		fBuild;
 
+		void		check(const string version) const;
+
 	public:
 		SemVer();
 
