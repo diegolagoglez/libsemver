@@ -37,20 +37,20 @@ all:
 
 %.o: %.cpp
 	@echo "  CC $@"
-	@$(CXX) -c $(VARS) $(CXXFLAGS) $(DEPS_FLAGS) $(INCLUDE) -o "$@" "$<"
+	@$(CXX) -c $(VARS) $(DEPS_FLAGS) $(INCLUDE) -o "$@" "$<" $(CXXFLAGS)
 
 debug: CXXFLAGS := $(CXXFLAGS) -g3 -O0 -DDEBUG
 debug: $(OBJS)
 	@echo "  GEN $(LIBDIR)/$(LIBNAME)"
 	@mkdir -p $(LIBDIR)
-	@$(CXX) -shared $(VARS) $(CXXFLAGS) $(LIBS) $(LIBNAMEFLAGS) -o $(LIBDIR)/$(LIBNAME) *.o
+	@$(CXX) -shared $(VARS) $(LIBNAMEFLAGS) -o $(LIBDIR)/$(LIBNAME) *.o $(CXXFLAGS)
 	@cd $(LIBDIR) && ln -sf $(LIBNAME) $(LINKERNAME) && ln -sf $(LIBNAME) $(SONAME)
 
 release: CXXFLAGS := $(CXXFLAGS) -O3 -DRELEASE
 release: $(OBJS)
 	@echo "  GEN $(LIBDIR)/$(LIBNAME)"
 	@mkdir -p $(LIBDIR)
-	@$(CXX) -shared $(VARS) $(CXXFLAGS) $(LIBS) $(LIBNAMEFLAGS) -o $(LIBDIR)/$(LIBNAME) *.o
+	@$(CXX) -shared $(VARS) $(LIBNAMEFLAGS) -o $(LIBDIR)/$(LIBNAME) *.o $(CXXFLAGS)
 	@cd $(LIBDIR) && ln -sf $(LIBNAME) $(LINKERNAME) && ln -sf $(LIBNAME) $(SONAME)
 
 .PHONY: clean
