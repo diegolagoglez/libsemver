@@ -43,6 +43,13 @@ class SemVer {
 		virtual int				compare(const SemVer& semver) const;
 		virtual int				compare(const SemVer* semver) const;
 
+		virtual bool			operator == (const SemVer& semver) const;
+		virtual bool			operator != (const SemVer& semver) const;
+		virtual bool			operator <	(const SemVer& semver) const;
+		virtual bool			operator >	(const SemVer& semver) const;
+		virtual bool			operator <=	(const SemVer& semver) const;
+		virtual bool			operator >=	(const SemVer& semver) const;
+
 		virtual const string	toString() const;
 };
 

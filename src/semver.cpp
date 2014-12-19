@@ -163,6 +163,36 @@ SemVer::compare(const SemVer* semver) const {
 	return compare(*semver);
 }
 
+bool
+SemVer::operator == (const SemVer& semver) const {
+	return compare(semver) == 0;
+}
+
+bool
+SemVer::operator != (const SemVer& semver) const {
+	return !operator==(semver);
+}
+
+bool
+SemVer::operator <	(const SemVer& semver) const {
+	return compare(semver) < 0;
+}
+
+bool
+SemVer::operator >	(const SemVer& semver) const {
+	return compare(semver) > 0;
+}
+
+bool
+SemVer::operator <=	(const SemVer& semver) const {
+	return compare(semver) <= 0;
+}
+
+bool
+SemVer::operator >=	(const SemVer& semver) const {
+	return compare(semver) >= 0;
+}
+
 const string
 SemVer::toString() const {
 	stringstream out;
