@@ -170,4 +170,10 @@ SemVer::toString() const {
 	return out.str();
 }
 
+std::ostream&
+operator << (std::ostream& out, const SemVer& semver) {
+	out << semver.toString();
+	return out;
+}
+
 }	// namespace semver

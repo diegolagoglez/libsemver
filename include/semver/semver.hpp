@@ -46,6 +46,9 @@ class SemVer {
 		virtual const string	toString() const;
 };
 
+std::ostream&
+operator << (std::ostream& out, const SemVer& semver);
+
 }	// namespace semver
 
 #endif
