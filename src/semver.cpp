@@ -77,6 +77,17 @@ SemVer::check(const string version) const {
 	}
 }
 
+int
+SemVer::intCompare(unsigned a, unsigned b) const {
+	return (a < b) ? -1 : (a > b);
+}
+
+int
+SemVer::stringCompare(string a, string b) const {
+	// TODO: Implement this with element precedence rules.
+	return a.compare(b);
+}
+
 void
 SemVer::assign(const string version) {
 	// Examples: 1.2.3, 1.2.3-beta, 1.2.3-beta+build, 1.2.3+build
@@ -127,8 +138,29 @@ SemVer::build() const {
 
 int
 SemVer::compare(const SemVer& semver) const {
-	// TODO: Implement this.
+	if (fMajor == semver.fMajor) {
+		if (fMinor == semver.fMinor) {
+			if (fPatch == semver.fPatch) {
+				if (fLabel == semver.fLabel) {
+					return stringCompare(fBuild, semver.fBuild);
+				} else {
+					return stringCompare(fLabel, semver.fLabel);
+				}
+			} else {
+				return intCompare(fPatch, semver.fPatch);
+			}
+		} else {
+			return intCompare(fMinor, semver.fMinor);
+		}
+	} else {
+		return intCompare(fMajor, semver.fMajor);
+	}
 	return 0;
+}
+
+int
+SemVer::compare(const SemVer* semver) const {
+	return compare(*semver);
 }
 
 const string
