@@ -95,7 +95,7 @@ SemVer::assign(const string version) {
 	// Matches: 1, 2 and 3: version parts. 4 is always de label part (alpha,
 	// beta, etc.); 6 or 7 are the build metainformation part.
 
-	static const boost::regex expression("([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:-(\\w+)(\\+(.*))?|\\+(.*))?");
+	static const boost::regex expression("([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:-(\\w+(\\.\\w*)?)(\\+(.*))?|\\+(.*))?");
 
 	boost::match_results<string::const_iterator> results;
 
