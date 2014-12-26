@@ -50,7 +50,7 @@ class SemVer {
 		virtual bool			operator <=	(const SemVer& semver) const;
 		virtual bool			operator >=	(const SemVer& semver) const;
 
-		virtual const string	toString() const;
+		virtual const string	toString(bool expanded = false) const;
 };
 
 std::ostream&

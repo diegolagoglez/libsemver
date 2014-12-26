@@ -194,9 +194,17 @@ SemVer::operator >=	(const SemVer& semver) const {
 }
 
 const string
-SemVer::toString() const {
+SemVer::toString(bool expanded) const {
 	stringstream out;
-	out << fMajor << NUMBER_SEPARATOR << fMinor << NUMBER_SEPARATOR << fPatch << (fLabel != "" ? LABEL_SEPARATOR + fLabel : "") << (fBuild != "" ? BUILD_SEPARATOR + fBuild : "");
+	if (expanded) {
+		out << "Major: " << fMajor << "\n";
+		out << "Minor: " << fMinor << "\n";
+		out << "Patch: " << fPatch << "\n";
+		out << "Label: " << fLabel << "\n";
+		out << "Build: " << fBuild << "\n";
+	} else {
+		out << fMajor << NUMBER_SEPARATOR << fMinor << NUMBER_SEPARATOR << fPatch << (fLabel != "" ? LABEL_SEPARATOR + fLabel : "") << (fBuild != "" ? BUILD_SEPARATOR + fBuild : "");
+	}
 	return out.str();
 }
 
