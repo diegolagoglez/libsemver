@@ -28,7 +28,8 @@ static TestVersion versions[] = {
 	{ "6.0.254", "6.0.255", -1 },
 	{ "0.0.1-alpha", "0.0.1-alpha1", -1 },
 	{ "0.0.1-alpha", "0.0.1-beta", -1 },
-	{ "0.0.1-alpha-3", "0.0.1-alpha-2", 1 },
+	{ "0.0.1-alpha.3", "0.0.1-alpha.2", 1 },
+	{ "0.0.1-alpha.25", "0.0.1-alpha.3", 1 },
 };
 
 void
