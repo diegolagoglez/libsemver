@@ -104,7 +104,7 @@ SemVer::assign(const string version) {
 		fMinor = string_to_int(results[2]);
 		fPatch = string_to_int(results[3]);
 		fLabel = results[4];
-		fBuild = results[6] != "" ? results[6] : results[7];
+		fBuild = results[7] != "" ? results[7] : results[8];
 		check(version);
 	} else {
 		throw std::invalid_argument("Invalid semantic version string: " + version);
