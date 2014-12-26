@@ -90,8 +90,8 @@ SemVer::stringCompare(string a, string b) const {
 
 void
 SemVer::assign(const string version) {
-	// Examples: 1.2.3, 1.2.3-beta, 1.2.3-beta+build, 1.2.3+build
-	// RegEx: ([0-9]+)\.([0-9]+)\.([0-9]+)(?:-(\w+)(\+(.*))?|\+(.*))?
+	// Examples: 1.2.3, 1.2.3-beta, 1.2.3-beta+build, 1.2.3-beta.1+B, 1.2.3+build
+	// RegEx: ([0-9]+)\.([0-9]+)\.([0-9]+)(?:-(\w+(\.\w*))(\+(.*))?|\+(.*))?
 	// Matches: 1, 2 and 3: version parts. 4 is always de label part (alpha,
 	// beta, etc.); 6 or 7 are the build metainformation part.
 
