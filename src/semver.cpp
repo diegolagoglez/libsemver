@@ -97,6 +97,8 @@ SemVer::assign(const string version) {
 
 	static const boost::regex expression("([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:-(\\w+(\\.\\w*)?)(\\+(.*))?|\\+(.*))?");
 
+	// Other example: ([0-9]+)\.([0-9]+)\.([0-9]+)(?:-((?!\+)[\w\.-]+))?(?:\+([\w\.-]+))?
+
 	boost::match_results<string::const_iterator> results;
 
 	if (boost::regex_search(version, results, expression)) {
